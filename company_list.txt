@@ -1,0 +1,9 @@
+akamai
+amazon
+apple
+facebook
+google
+k12
+microsoft
+rackspace
+youtube
