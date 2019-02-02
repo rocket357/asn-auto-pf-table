@@ -24,10 +24,10 @@ for company in `cat $COMPANY_LIST`; do
         for ASN in `$ECHO $ASNs`; do
                 $ECHO "    Looking up registered netranges for ASN: $ASN";
                 $ECHO -n $($WHOIS -h whois.radb.net "!gas$ASN" | $GREP '/' | $TR ' ' '\n') >> /tmp/$company
-                $ECHO "" >> /tmp/$company
+                $ECHO " " >> /tmp/$company
         done;
         $ECHO " Writing pf table definition to $CACHEDIR$company"
-        for ipr in `cat /tmp/$company | $SORT -nu`; do $ECHO -n $ipr >> $CACHEDIR/$company; $ECHO -n ", " >> $CACHEDIR/$company; done
+        for ipr in `cat /tmp/$company | tr ' ' '\n' | $SORT -nu`; do $ECHO -n $ipr >> $CACHEDIR/$company; $ECHO -n ", " >> $CACHEDIR/$company; done
         $SED -e 's/, $//' $CACHEDIR/$company > /tmp/$company;
         $MV /tmp/$company $CACHEDIR/$company;
         $ECHO " }" >> $CACHEDIR/$company;
